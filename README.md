@@ -1,3 +1,11 @@
+mvn clean package
+vim ~/.bashrc 
+source ~/.bashrc 
+java -version
+
+windup-cli --input target/crud-1.0.0.jar --output /home/parraes/quarkus/mta-quarkus --target openjdk17 quarkus resteasy cloud-readiness
+
+
 ## RESTful CRUD using Spring Boot, H2 database and Swagger UI
 
 ## Two ways to run the application:

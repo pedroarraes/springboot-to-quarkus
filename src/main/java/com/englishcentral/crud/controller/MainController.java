@@ -5,6 +5,9 @@ import com.englishcentral.crud.model.Product;
 import com.englishcentral.crud.payload.ApiResponse;
 import com.englishcentral.crud.payload.ProductRequest;
 import com.englishcentral.crud.repository.ProductRepository;
+
+import jakarta.ws.rs.WebApplicationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+//import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
@@ -48,7 +51,8 @@ public class MainController {
   public Product getProduct(@PathVariable Long id) {
     Optional<Product> product = productRepository.findById(id);
     if (!product.isPresent()) {
-      throw new AppException("Product not found.");
+      //throw new AppException("Product not found.");
+      throw new WebApplicationException("Product not found.");
     }
     return product.get();
   }
@@ -66,15 +70,17 @@ public class MainController {
     product.setPrice(request.getPrice());
     Product result = productRepository.save(product);
 
-    URI location = ServletUriComponentsBuilder
-            .fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(result.getId())
-            .toUri();
+    // URI location = ServletUriComponentsBuilder
+    //         .fromCurrentRequest()
+    //         .path("/{id}")
+    //         .buildAndExpand(result.getId())
+    //         .toUri();
 
-    return ResponseEntity.created(location).body(
-        new ApiResponse(true,
-            "Product was successfully saved."));
+    // return ResponseEntity.created(location).body(
+    //     new ApiResponse(true,
+    //         "Product was successfully saved."));
+
+    return null;
   }
 
   /**
@@ -87,7 +93,8 @@ public class MainController {
                                       @PathVariable Long id) {
     Optional<Product> productOptional = productRepository.findById(id);
     if (!productOptional.isPresent()) {
-      throw new AppException("Product not found.");
+      //throw new AppException("Product not found.");
+      throw new WebApplicationException("Product not found.");
     }
     Product product = productOptional.get();
     product.setName(request.getName());
@@ -108,9 +115,12 @@ public class MainController {
   public ResponseEntity deleteProduct(@PathVariable Long id) {
     Optional<Product> product = productRepository.findById(id);
     if (!product.isPresent()) {
-      throw new AppException("Product not found.");
+      
+      //throw new AppException("Product not found.");
+      throw new WebApplicationException("Product not found.");
     }
-    productRepository.delete(product.get());
+    productRepository .delete(product.get());
+   
     return ResponseEntity.ok()
         .body(new ApiResponse(true,
             "Product was successfully deleted."));
