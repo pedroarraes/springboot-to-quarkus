@@ -1,3 +1,4 @@
+vim ~/.bashrc 
 mvn clean package
 vim ~/.bashrc 
 source ~/.bashrc 
