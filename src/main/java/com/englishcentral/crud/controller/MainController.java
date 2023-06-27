@@ -1,6 +1,5 @@
 package com.englishcentral.crud.controller;
 
-import com.englishcentral.crud.exception.AppException;
 import com.englishcentral.crud.model.Product;
 import com.englishcentral.crud.payload.ApiResponse;
 import com.englishcentral.crud.payload.ProductRequest;
