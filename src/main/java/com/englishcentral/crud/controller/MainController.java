@@ -1,7 +1,6 @@
 package com.englishcentral.crud.controller;
 
 import com.englishcentral.crud.model.Product;
-import com.englishcentral.crud.payload.ApiResponse;
 import com.englishcentral.crud.payload.ProductRequest;
 import com.englishcentral.crud.repository.ProductRepository;
 
@@ -19,9 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+
+import java.net.URI;
 
 /**
  * Created by christophergumera on 16/08/2018.
@@ -79,7 +79,10 @@ public class MainController {
     //     new ApiResponse(true,
     //         "Product was successfully saved."));
 
-    return null;
+    if(result.equals(result))
+      return ResponseEntity.status(201).build();
+    else
+      return ResponseEntity.status(500).build();
   }
 
   /**
@@ -100,9 +103,9 @@ public class MainController {
     product.setDescription(request.getDescription());
     product.setPrice(request.getPrice());
     productRepository.save(product);
-    return ResponseEntity.ok()
-        .body(new ApiResponse(true,
-            "Product was successfully updated."));
+    return ResponseEntity.ok().build();
+        // .body(new ApiResponse(true,
+        //     "Product was successfully updated."));
   }
 
   /**
@@ -120,8 +123,8 @@ public class MainController {
     }
     productRepository .delete(product.get());
    
-    return ResponseEntity.ok()
-        .body(new ApiResponse(true,
-            "Product was successfully deleted."));
+    return ResponseEntity.ok().build();
+        // .body(new ApiResponse(true,
+        //     "Product was successfully deleted."));
   }
 }
