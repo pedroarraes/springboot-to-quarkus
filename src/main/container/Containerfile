@@ -1,4 +1,8 @@
-#podman build -f src/main/container/Containerfile -t apps-spring .
+#./mvnw clean package
+#podman build -f src/main/container/Containerfile -t app-spring .
+#podman run -i --rm -p 8888:8888 app-spring
+#
+
 FROM registry.access.redhat.com/ubi8/openjdk-8:1.16-1.1687182685
 
 USER root
