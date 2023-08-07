@@ -288,4 +288,15 @@ Several essential questions must be addressed before proceeding with the decisio
 * **Do the legacy Spring libraries have a compatible implementation in quarkus for cloud native?**
 *If your application meets the necessary criteria, migrating to Quarkus or Quarkus + GraalVM might be a wise decision. However, there are certain aspects to consider. While native applications offer fast startup times, their performance may diminish compared to GraalVM when running for prolonged periods. Additionally, the cost of migration and code rewriting must be taken into account. In this context, the example utilized involved a straightforward application with cloud-native libraries compatible with Quarkus.*
 
+* **Does your application require instant startup?**
+
+*Applications that adhere to the serverless concept, which demand rapid initialization and can be turned off after processing requests, are excellent candidates for migration to native Quarkus. The native Quarkus implementation ensures exceptionally fast startup times, aligning well with the requirements of serverless environments.*
+
+*However, if the initialization time is not a critical concern for your business and you seek optimal response times for APIs running over the long term, an alternative worth considering is using Quarkus with GraalVM. While native execution offers swift startup times, GraalVM tends to deliver better response times for APIs in prolonged execution scenarios.*
+
+*In summary, choosing between native Quarkus and Quarkus with GraalVM depends on your specific use case and the priorities for initialization time and API response performance.*
+
+
+
+
 
