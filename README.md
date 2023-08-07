@@ -1,7 +1,6 @@
 # Migration SpringBoot to Quarkus Cloud Native
 This source demonstrates the differences between a Spring Boot application and the same application migrated to Quarkus, running in a native cloud environment. The 'master' branch contains the original application, which was forked from the "https://github.com/CGumera/spring-crud". In the 'quarkus' branch, the code was modified to run using Quarkus in a cloud-native environment. To facilitate comparison, a Containerfile was added to the 'master' branch to simulate conditions similar to the 'Quarkus' branch. However, the original application itself remains unmodified.
 
-
 ## Requirements
 * [OpenJDK 1.8 for Spring-Boot branch] (master) (https://developers.redhat.com/content-gateway/file/openjdk/July_2023/java-1.8.0-openjdk-portable-1.8.0.382.b05-2.portable.jdk.el.x86_64.tar.xz)
 * OpenJDK 17 for Quarkus branch (quarkus) (https://developers.redhat.com/content-gateway/file/openjdk/17.0.8/java-17-openjdk-17.0.8.0.7-1.portable.jdk.el.x86_64.tar.xz)
@@ -9,6 +8,31 @@ This source demonstrates the differences between a Spring Boot application and t
 * Apache Maven (https://maven.apache.org/download.cgi)
 
 Other versions of Red Hat OpenJDK Build are available at https://developers.redhat.com/products/openjdk/download#assembly-field-downloads-page-content-82031. Please note that all versions of this tutorial have been implemented and tested on Fedora Linux. Before downloading and installing the requirements, kindly verify your operating system version for compatibility.
+
+## Summary
+* [Starting Red Hat Data Grid](#starting-red-hat-data-grid)
+* [Running the application in dev mode](#running-the-application-in-dev-mode)
+* [Testing API application](#testing-api-application)
+* [Understanding Java code](#understanding-java-code)
+    * [Java Classes](#java-classes)
+        * [Person](#person)
+        * [PersonContextInitializer](#personcontextinitializers)
+        * [DataGridApiEndPoint](#datagridapiendpoint)
+    * [Application.properties](#application-properties)    
+* [Related Guides](#Related-guides)   
+* [Compiling and running branch master (spring boot)](#compiling-and-running-branch-master-spring-boot)
+  * [Build the project](#build-the-project)
+  * [Build the container image](#build-the-container-image)
+  * [Running your application in a container](#running-your-application-in-a-container)
+  * [Using the Application](#using-the-application)
+* [Compiling and running branch quarkus](#compiling-and-running-branch-quarkus)
+  * [Build the project](#build-the-project-1)
+  * [Build the container image](#build-the-container-image-1)
+  * [Running your application in a container](#running-your-application-in-a-container-1)
+  * [Using the Application](#using-the-application-1)
+* [Quarkus versus Spring-Boot](#quarkus-versus-spring-boot)
+  * [Some comparations with Quarkus and Spring-Boot](#some-comparations-with-quarkus-and-spring-boot)
+
 
 ## Compiling and running branch master (spring boot)
 
@@ -49,7 +73,7 @@ $ podman --version
 podman version 4.6.0
 ```
 
-### Build the project:
+### Build the project
 
 Open a terminal or command prompt and navigate to the root folder of your Spring Boot project.
 Use a build tool Maven to compile the application and package it into an executable WAR file.
@@ -175,7 +199,7 @@ $ podman run -i --rm -p 8888:8888 app-spring
 2023-08-07 18:51:51.324  INFO 1 --- [           main] com.englishcentral.crud.CrudApplication  : Started CrudApplication in 3.406 seconds (JVM running for 3.727)
 ```
 
-### Using the Application:
+### Using the Application
 Use Swagger UI to test the endpoints. URL = http://localhost:8888/swagger-ui.html#/
 
 ![Alt text](appendix/spring-app.png)
@@ -205,10 +229,10 @@ branch 'quarkus' set up to track 'origin/quarkus'.
 Switched to a new branch 'quarkus'
 ```
 
-### Build the project:
+### Build the project
 
-Open a terminal or command prompt and navigate to the root folder of your Spring Boot project.
-Use a build tool Maven to compile the application and package it into an executable WAR file.
+Open a terminal or command prompt and navigate to the root folder of your Quarkus project.
+Use a build tool Maven to compile the application and package it into an executable JAR (Runs in GraalVM) and *-runner file, native.
 For Maven, use the following command:
 
 ```shell
@@ -276,12 +300,12 @@ __  ____  __  _____   ___  __ ____  ______
 
 ```
 
-### Using the Application:
+### Using the Application
 Use Swagger UI to test the endpoints. URL = http://localhost:8080/q/swagger-ui
 ![Alt text](appendix/quarkus-app.png)
 
 
-## Comparation Quarkus versus Spring-Boot
+## Quarkus versus Spring-Boot
 
 Several essential questions must be addressed before proceeding with the decision to migrate your Spring Boot application to Quarkus in its native form.
 
