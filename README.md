@@ -10,16 +10,6 @@ This source demonstrates the differences between a Spring Boot application and t
 Other versions of Red Hat OpenJDK Build are available at https://developers.redhat.com/products/openjdk/download#assembly-field-downloads-page-content-82031. Please note that all versions of this tutorial have been implemented and tested on Fedora Linux. Before downloading and installing the requirements, kindly verify your operating system version for compatibility.
 
 ## Summary
-* [Starting Red Hat Data Grid](#starting-red-hat-data-grid)
-* [Running the application in dev mode](#running-the-application-in-dev-mode)
-* [Testing API application](#testing-api-application)
-* [Understanding Java code](#understanding-java-code)
-    * [Java Classes](#java-classes)
-        * [Person](#person)
-        * [PersonContextInitializer](#personcontextinitializers)
-        * [DataGridApiEndPoint](#datagridapiendpoint)
-    * [Application.properties](#application-properties)    
-* [Related Guides](#Related-guides)   
 * [Compiling and running branch master (spring boot)](#compiling-and-running-branch-master-spring-boot)
   * [Build the project](#build-the-project)
   * [Build the container image](#build-the-container-image)
