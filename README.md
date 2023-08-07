@@ -14,7 +14,7 @@ Other versions of Red Hat OpenJDK Build are available at https://developers.redh
 
 Before starting the compilation process, let's verify that we have met all the requirements:
 
-1. *Java Development Kit (JDK):* Ensure that you have the required JDK version installed on your system. If you're compiling a Spring Boot application, you'll typically need JDK 8 or higher. You can check your JDK version by running the following command in the terminal or command prompt:
+1. *Java Development Kit (JDK):* Ensure that you have the required JDK version installed on your system. If you're compiling a Spring Boot application, you'll typically need JDK 8. You can check your JDK version by running the following command in the terminal or command prompt:
 
 ```shell
 $ java -version
@@ -23,7 +23,7 @@ $ java -version
 ```console
 openjdk version "1.8.0_382"
 OpenJDK Runtime Environment (build 1.8.0_382-b05)
-OpenJDK 64-Bit Server VM (build 25.382-b05, mixed mode)$ 
+OpenJDK 64-Bit Server VM (build 25.382-b05, mixed mode)
 ```
 
 2. *Build Tool:* If you're using a specific build tool like Maven, ensure it is installed and available in your system's PATH. You can verify the installation by running the following commands:
@@ -181,5 +181,101 @@ Use Swagger UI to test the endpoints. URL = http://localhost:8888/swagger-ui.htm
 ![Alt text](appendix/spring-app.png)
 
 
+## Compiling and running branch quarkus
+*Java Development Kit (JDK):* Ensure that you have the required JDK version installed on your system. If you're compiling a Spring Boot application, you'll typically need JDK 17. You can check your JDK version by running the following command in the terminal or command prompt:
 
+```shell
+$ java -version
+```
 
+```console
+openjdk version "17.0.8" 2023-07-18 LTS
+OpenJDK Runtime Environment (Red_Hat-17.0.8.0.7-1.el7openjdkportable) (build 17.0.8+7-LTS)
+OpenJDK 64-Bit Server VM (Red_Hat-17.0.8.0.7-1.el7openjdkportable) (build 17.0.8+7-LTS, mixed mode, sharing)
+```
+
+* Changing do branch quarkus
+
+```shell
+$ git checkout quarkus
+```
+
+```console
+branch 'quarkus' set up to track 'origin/quarkus'.
+Switched to a new branch 'quarkus'
+```
+
+### Build the project:
+
+Open a terminal or command prompt and navigate to the root folder of your Spring Boot project.
+Use a build tool Maven to compile the application and package it into an executable WAR file.
+For Maven, use the following command:
+
+```shell
+$ mvn clean package -Pnative
+```
+
+```console
+Omitted
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:55 min
+[INFO] Finished at: 2023-08-07T16:13:34-03:00
+[INFO] ------------------------------------------------------------------------
+```
+
+### Build the container image
+To build a container image using Podman, you can follow this step:
+
+```shell
+$ podman build -f src/main/container/Containerfile -t app-quarkus .
+```
+
+```console
+STEP 1/7: FROM registry.access.redhat.com/ubi8/ubi-minimal:8.6
+Trying to pull registry.access.redhat.com/ubi8/ubi-minimal:8.6...
+Getting image source signatures
+Checking if image destination supports signatures
+Copying blob a6577091999b done  
+Copying config abb1ba1bce done  
+Writing manifest to image destination
+Storing signatures
+STEP 2/7: WORKDIR /work/
+--> df35841fb672
+STEP 3/7: RUN chown 1001 /work     && chmod "g+rwX" /work     && chown 1001:root /work
+--> c9cb5c1d12e4
+STEP 4/7: COPY --chown=1001:root target/*-runner /work/application
+--> af61447d8866
+STEP 5/7: EXPOSE 8080
+--> 1e5a7448a8ad
+STEP 6/7: USER 1001
+--> 6f5b2f49201f
+STEP 7/7: CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+COMMIT app-quarkus
+--> 35056b448588
+Successfully tagged localhost/app-quarkus:latest
+35056b448588337f634bd64b494f5ee50940a032455799c2626ca395f441e383
+```
+
+### Running your application in a container
+To run your application in a container using Podman, follow this step:
+
+```shell
+$ podman run -i --rm -p 8080:8080 app-quarkus
+```
+
+```console
+__  ____  __  _____   ___  __ ____  ______ 
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / __/ 
+ -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \   
+--\___\_\____/_/ |_/_/|_/_/|_|\____/___/   
+2023-08-07 19:38:26,566 INFO  [io.quarkus] (main) springboot-to-quarkus 1.0.0-SNAPSHOT native (powered by Quarkus 3.1.2.Final) started in 0.030s. Listening on: http://0.0.0.0:8080
+2023-08-07 19:38:26,566 INFO  [io.quarkus] (main) Profile prod activated. 
+2023-08-07 19:38:26,566 INFO  [io.quarkus] (main) Installed features: [agroal, cdi, hibernate-orm, hibernate-orm-panache, hibernate-validator, jdbc-h2, narayana-jta, resteasy-reactive, resteasy-reactive-jackson, smallrye-context-propagation, smallrye-openapi, spring-boot-properties, spring-data-jpa, spring-di, spring-web, swagger-ui, vertx]
+
+```
+
+### Using the Application:
+Use Swagger UI to test the endpoints. URL = http://localhost:8080/q/swagger-ui
+![Alt text](appendix/quarkus-app.png)
