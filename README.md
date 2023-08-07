@@ -285,7 +285,7 @@ Use Swagger UI to test the endpoints. URL = http://localhost:8080/q/swagger-ui
 
 Several essential questions must be addressed before proceeding with the decision to migrate your Spring Boot application to Quarkus in its native form.
 
-1. *Do the legacy Spring libraries have a compatible implementation in quarkus for cloud native?*
-**If your application meets the necessary criteria, migrating to Quarkus or Quarkus + GraalVM might be a wise decision. However, there are certain aspects to consider. While native applications offer fast startup times, their performance may diminish compared to GraalVM when running for prolonged periods. Additionally, the cost of migration and code rewriting must be taken into account. In this context, the example utilized involved a straightforward application with cloud-native libraries compatible with Quarkus.**
+* **Do the legacy Spring libraries have a compatible implementation in quarkus for cloud native?**
+*If your application meets the necessary criteria, migrating to Quarkus or Quarkus + GraalVM might be a wise decision. However, there are certain aspects to consider. While native applications offer fast startup times, their performance may diminish compared to GraalVM when running for prolonged periods. Additionally, the cost of migration and code rewriting must be taken into account. In this context, the example utilized involved a straightforward application with cloud-native libraries compatible with Quarkus.*
 
 
