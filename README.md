@@ -293,7 +293,40 @@ Several essential questions must be addressed before proceeding with the decisio
 *However, if the initialization time is not a critical concern for your business and you seek optimal response times for APIs running over the long term, an alternative worth considering is using Quarkus with GraalVM. While native execution offers swift startup times, GraalVM tends to deliver better response times for APIs in prolonged execution scenarios.*
 *In summary, choosing between native Quarkus and Quarkus with GraalVM depends on your specific use case and the priorities for initialization time and API response performance.*
 
+* **Some comparations with spring-boot container image and quarkus image:**
 
+When comparing container images of Spring Boot and Quarkus applications, there are several factors to consider:
+
+Image Size:
+Quarkus applications generally produce smaller container images compared to Spring Boot applications. Quarkus is designed to optimize for minimal resource consumption and has a smaller runtime footprint, resulting in leaner container images.
+```shell
+podman images
+```
+
+```console
+localhost/app-quarkus                              latest             35056b448588  26 minutes ago     189 MB
+localhost/app-spring                               latest             8a2545976243  About an hour ago  422 MB
+```
+
+Startup Time:
+Quarkus applications exhibit significantly faster startup times compared to Spring Boot applications. Quarkus's ability to perform ahead-of-time (AOT) compilation and native image generation contributes to reduced initialization times.
+
+Resource Utilization:
+Due to its lightweight nature, Quarkus consumes fewer resources (memory and CPU) during container execution, making it more suitable for serverless and resource-constrained environments.
+
+Performance:
+Quarkus applications often deliver better runtime performance due to their native image support and AOT compilation. However, Spring Boot might offer comparable performance in scenarios where initialization time is not critical.
+
+Compatibility and Ecosystem:
+Spring Boot has a mature and extensive ecosystem with a wide range of plugins, libraries, and integrations available. Quarkus, being relatively newer, is rapidly growing its ecosystem, but some specialized libraries and integrations might be more readily available in the Spring Boot ecosystem.
+
+Developer Experience:
+Both Spring Boot and Quarkus offer excellent developer experiences, but the familiarity of the development team with Spring or Quarkus can influence the ease of development and maintenance.
+
+Supported Technologies:
+Spring Boot supports a broad range of technologies and frameworks out of the box, making it a versatile choice for various applications. Quarkus is tailored for cloud-native and microservices architectures, so it may have specific optimizations for these use cases.
+
+In summary, Quarkus generally excels in areas such as image size, startup time, and resource utilization, making it an ideal choice for serverless and cloud-native applications with a focus on fast initialization. Spring Boot, on the other hand, offers a more extensive ecosystem and broader compatibility, making it a strong option for a wider range of use cases. The choice between the two ultimately depends on your specific application requirements, performance needs, and team's expertise.
 
 
 
